@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sapiencia · Treinamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ================================
+     SAPIENCIA · DESIGN SYSTEM
+     ================================ */
+  :root {
+    --ink: #14101A;
+    --ink-soft: #2B2336;
+    --ink-mute: #6B6378;
+    --ink-faint: #A8A2B2;
+    --bone: #F6F2EC;
+    --bone-warm: #EDE6DC;
+    --paper: #FBF8F3;
+    --plum: #5B2A86;
+    --plum-deep: #3F1D5E;
+    --plum-soft: #EFE6F7;
+    --plum-glow: #8B5FBF;
+    --gold: #C8A04A;
+    --green: #2F6B3A;
+    --green-soft: #E5EFE6;
+    --red: #B33A3A;
+    --red-soft: #F4E4E2;
+    --line: rgba(20, 16, 26, 0.08);
+    --line-strong: rgba(20, 16, 26, 0.18);
+    --shadow-soft: 0 1px 2px rgba(20,16,26,.04), 0 8px 24px rgba(20,16,26,.06);
+    --shadow-card: 0 1px 2px rgba(20,16,26,.04), 0 12px 32px rgba(20,16,26,.08);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(91,42,134,0.04), transparent 40%),
+      radial-gradient(circle at 85% 95%, rgba(200,160,74,0.04), transparent 40%);
+    background-attachment: fixed;
+  }
+
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea { font-family: inherit; color: inherit; }
+
+  /* ================================
+     LAYOUT GERAL
+     ================================ */
+  .app { min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* TOP BAR */
+  .topbar {
+    border-bottom: 1px solid var(--line);
+    background: rgba(251, 248, 243, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+  }
+  .brand { display: flex; align-items: baseline; gap: 12px; }
+  .brand-mark {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand-mark em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--plum);
+  }
+  .brand-divider {
+    width: 1px; height: 18px; background: var(--line-strong);
+  }
+  .brand-module {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+  }
+  .topbar-meta {
+    display: flex; align-items: center; gap: 18px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .status-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); margin-right: 6px;
+    box-shadow: 0 0 0 3px var(--green-soft);
+  }
+  @media (max-width: 720px) {
+    .topbar-inner { padding: 14px 20px; }
+    .topbar-meta .meta-date { display: none; }
+  }
+
+  /* ================================
+     PÁGINA INICIAL · DASHBOARD
+     ================================ */
+  .page { max-width: 1280px; margin: 0 auto; padding: 56px 32px 80px; }
+  @media (max-width: 720px) { .page { padding: 40px 20px 60px; } }
+
+  .page-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; margin-bottom: 48px; flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--plum); margin-bottom: 14px;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 18ch;
+  }
+  .page-title em { font-style: italic; color: var(--plum); }
+  .page-subtitle {
+    color: var(--ink-mute);
+    margin-top: 14px;
+    font-size: 16px;
+    max-width: 56ch;
+  }
+
+  /* MÉTRICAS GLOBAIS */
+  .metrics-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 6px;
+    overflow: hidden; margin-bottom: 56px;
+    background-color: var(--bone);
+  }
+  .metric { background: var(--paper); padding: 22px 24px; }
+  .metric-label {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--ink-mute); margin-bottom: 8px;
+  }
+  .metric-value {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .metric-value sub {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-mute);
+    margin-left: 4px;
+    vertical-align: baseline;
+  }
+  @media (max-width: 720px) {
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .metric-value { font-size: 28px; }
+  }
+
+  /* SEÇÃO DE TRAINEES */
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .section-meta {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-mute);
+  }
+
+  .trainees-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  @media (max-width: 880px) { .trainees-grid { grid-template-columns: 1fr; } }
+
+  .trainee-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 32px;
+    transition: all .25s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .trainee-card:hover {
+    border-color: var(--plum-glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+  .trainee-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--plum), var(--plum-glow));
+    opacity: 0; transition: opacity .25s ease;
+  }
+  .trainee-card:hover::before { opacity: 1; }
+
+  .trainee-head {
+    display: flex; align-items: flex-start; gap: 18px; margin-bottom: 24px;
+  }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--plum-soft);
+    color: var(--plum);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+  }
+  .trainee-info { flex: 1; min-width: 0; }
+  .trainee-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .trainee-role {
+    font-size: 13px; color: var(--ink-mute);
+  }
+  .trainee-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    padding: 5px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    color: var(--ink-soft);
+  }
+
+  .progress-section { margin-bottom: 24px; }
+  .progress-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .progress-label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-mute);
+  }
+  .progress-value {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .progress-value small {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-left: 4px;
+  }
+  .progress-track {
+    height: 6px; background: var(--bone-warm);
+    border-radius: 100px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--plum), var(--plum-glow));
+    border-radius: 100px;
+    transition: width .6s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .trainee-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    padding-top: 22px; border-top: 1px dashed var(--line-strong);
+  }
+  .stat-label {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-mute); margin-bottom: 4px;
+  }
+  .stat-value {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 18px; letter-spacing: -0.01em;
+  }
+  .stat-value.warn { color: var(--red); }
+  .stat-value.ok { color: var(--green); }
+
+  /* ================================
+     PÁGINA DE DETALHE
+     ================================ */
+  .detail { display: none; }
+  .detail.active { display: block; }
+  .home.hidden { display: none; }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    padding: 8px 0; margin-bottom: 24px;
+    transition: color .2s ease;
+  }
+  .back-btn:hover { color: var(--plum); }
+  .back-btn::before { content: '←'; font-size: 14px; }
+
+  .detail-header {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 24px;
+    align-items: center;
+    padding-bottom: 32px; margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-header .avatar { width: 72px; height: 72px; font-size: 28px; }
+  .detail-name {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -0.02em; line-height: 1.05;
+  }
+  .detail-role {
+    color: var(--ink-mute); margin-top: 4px;
+    font-size: 14px;
+  }
+  .detail-progress-circle {
+    text-align: right; flex-shrink: 0;
+  }
+  .detail-progress-circle .big {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 40px; line-height: 1; color: var(--plum);
+    letter-spacing: -0.02em;
+  }
+  .detail-progress-circle .small {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--ink-mute); margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .detail-header { grid-template-columns: auto 1fr; }
+    .detail-progress-circle { grid-column: 1 / -1; text-align: left; }
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+  }
+  @media (max-width: 980px) {
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+
+  /* FASES */
+  .phase {
+    margin-bottom: 36px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .phase-head {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    background: var(--bone);
+  }
+  .phase-title-wrap { display: flex; align-items: baseline; gap: 14px; flex: 1; min-width: 0; }
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--plum);
+    font-weight: 500;
+  }
+  .phase-title {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 18px; letter-spacing: -0.01em;
+  }
+  .phase-progress-mini {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    flex-shrink: 0;
+  }
+  .phase-progress-mini b {
+    color: var(--ink); font-weight: 600;
+  }
+
+  .week {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .week:last-child { border-bottom: none; }
+  .week-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .week-title {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  .week-meta {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+
+  .task-list { list-style: none; }
+  .task {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    transition: opacity .2s ease;
+  }
+  .task:last-child { border-bottom: none; }
+  .task.done .task-text {
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-faint);
+    color: var(--ink-mute);
+  }
+
+  .checkbox {
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: all .15s ease;
+    position: relative;
+    background: var(--paper);
+  }
+  .checkbox:hover { border-color: var(--plum); }
+  .task.done .checkbox {
+    background: var(--plum);
+    border-color: var(--plum);
+  }
+  .task.done .checkbox::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 6px;
+    width: 4px; height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .task-text {
+    flex: 1; font-size: 14px; line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .task-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 3px 8px;
+    border-radius: 100px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .task-tag.milestone {
+    background: var(--gold);
+    color: white;
+  }
+  .task-tag.danger {
+    background: var(--red-soft);
+    color: var(--red);
+  }
+  .task-tag.study {
+    background: var(--plum-soft);
+    color: var(--plum);
+  }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 24px; }
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--ink-mute);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .next-task {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .next-task:last-child { border-bottom: none; }
+  .next-task .where {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--plum);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .empty-state {
+    color: var(--ink-faint);
+    font-style: italic;
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  .notes-textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    background: var(--paper);
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color .15s ease;
+    font-family: var(--sans);
+  }
+  .notes-textarea:focus {
+    outline: none;
+    border-color: var(--plum);
+  }
+  .notes-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 10px;
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .save-pulse {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .save-pulse.show { opacity: 1; }
+  .save-pulse::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--green);
+  }
+
+  .reset-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    transition: all .15s ease;
+  }
+  .reset-btn:hover {
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  /* ANIMAÇÕES */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page > * { animation: fadeUp .5s ease both; }
+  .page > *:nth-child(2) { animation-delay: .05s; }
+  .page > *:nth-child(3) { animation-delay: .1s; }
+  .page > *:nth-child(4) { animation-delay: .15s; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">Sapiencia<em>.</em></div>
+        <div class="brand-divider"></div>
+        <div class="brand-module">Treinamento</div>
+      </div>
+      <div class="topbar-meta">
+        <span class="meta-status"><span class="status-dot"></span>Online</span>
+        <span class="meta-date" id="today-date"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME · DASHBOARD -->
+  <main class="page home" id="home">
+    <div class="page-header">
+      <div>
+        <div class="eyebrow">Visão Geral · Maio 2026</div>
+        <h1 class="page-title">Acompanhamento de <em>treinamentos</em> em curso.</h1>
+        <p class="page-subtitle">Marque o que foi concluído, anote observações da semana e acompanhe os marcos. Os dados são salvos automaticamente neste navegador.</p>
+      </div>
+    </div>
+
+    <div class="metrics-row" id="metrics-row"></div>
+
+    <div class="section-header">
+      <h2 class="section-title">Pessoas em treinamento</h2>
+      <span class="section-meta" id="trainees-count">— pessoas ativas</span>
+    </div>
+
+    <div class="trainees-grid" id="trainees-grid"></div>
+  </main>
+
+  <!-- DETAIL · PESSOA -->
+  <main class="page detail" id="detail">
+    <button class="back-btn" id="back-btn">Voltar</button>
+    <div class="detail-header">
+      <div class="avatar" id="d-avatar">—</div>
+      <div>
+        <h1 class="detail-name" id="d-name">—</h1>
+        <div class="detail-role" id="d-role">—</div>
+      </div>
+      <div class="detail-progress-circle">
+        <div class="big" id="d-pct">0%</div>
+        <div class="small">Concluído</div>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div id="d-phases"></div>
+
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="panel-title">Próximas tarefas</div>
+          <div id="d-next"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Anotações da semana</div>
+          <textarea class="notes-textarea" id="d-notes" placeholder="Observações do Gabriel sobre essa semana, dúvidas que surgiram, decisões a tomar..."></textarea>
+          <div class="notes-meta">
+            <span id="d-notes-meta">—</span>
+            <span class="save-pulse" id="save-pulse">salvo</span>
+          </div>
+        </div>
+
+        <div class="panel" style="text-align:center;">
+          <button class="reset-btn" id="reset-btn">Reiniciar progresso</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+</div>
+
+<script>
+/* =====================================================
+   DADOS — TREINAMENTOS
+   ===================================================== */
+const TRAINEES = [
+  {
+    id: 'lorena',
+    name: 'Maria Lorena',
+    role: 'Account Leader · Social Media · Apoio Audiovisual',
+    initials: 'ML',
+    startDate: '2026-05-11',
+    duration: '30 dias',
+    phases: [
+      {
+        title: 'Semana 1 — Observação total',
+        subtitle: 'Eu faço, você observa',
+        weeks: [
+          {
+            label: 'Segunda a Sexta',
+            tasks: [
+              { id: 'l-w1-1', text: 'Apresentação ao time. Tour pelas ferramentas (Trello, TeraBox).' },
+              { id: 'l-w1-2', text: 'Acompanhar a daily das 09:00.' },
+              { id: 'l-w1-3', text: 'Eu mostro como abrir grupo de cliente novo + mensagem inicial.' },
+              { id: 'l-w1-4', text: 'Eu mostro como criar pauta quinzenal usando IA.' },
+              { id: 'l-w1-5', text: 'Eu mostro como aprovar conteúdo com cliente.' },
+              { id: 'l-w1-6', text: 'Eu mostro como monto o relatório semanal.' },
+              { id: 'l-w1-7', text: 'Caderno de aprendizagens preenchido todo dia.', tag: 'study' },
+              { id: 'l-w1-8', text: 'Apresentar resumo no sábado de cultura.', tag: 'milestone' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Semana 2 — Explicação',
+        subtitle: 'Você me explica como faria',
+        weeks: [
+          {
+            label: 'Segunda a Sexta',
+            tasks: [
+              { id: 'l-w2-1', text: 'Explicar passo a passo como abriria grupo novo.' },
+              { id: 'l-w2-2', text: 'Explicar como criaria pauta para um cliente específico.' },
+              { id: 'l-w2-3', text: 'Treino de comunicação: simular cobrança ao Arthur.' },
+              { id: 'l-w2-4', text: 'Responder cliente com leitura prévia minha.' },
+              { id: 'l-w2-5', text: 'Montar rascunho do relatório semanal — eu reviso.' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Semana 3 — Execução supervisionada',
+        subtitle: 'Você faz, eu acompanho',
+        weeks: [
+          {
+            label: 'Segunda a Sexta',
+            tasks: [
+              { id: 'l-w3-1', text: 'Responder grupos sozinha — eu olho no fim do dia.' },
+              { id: 'l-w3-2', text: 'Criar pauta de um cliente do início ao fim.' },
+              { id: 'l-w3-3', text: 'Distribuir demandas no Trello para Pedro e Arthur.' },
+              { id: 'l-w3-4', text: 'Aprovar conteúdo com cliente sozinha.' },
+              { id: 'l-w3-5', text: 'Montar e enviar relatório — eu valido só por segurança.' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Semana 4 — Autonomia',
+        subtitle: 'Você faz sozinha',
+        weeks: [
+          {
+            label: 'Segunda a Sábado',
+            tasks: [
+              { id: 'l-w4-1', text: 'Tocar a operação sem supervisão direta.' },
+              { id: 'l-w4-2', text: 'Apresentar números da semana na sexta.' },
+              { id: 'l-w4-3', text: 'Participar do sábado de cultura como dona da operação.', tag: 'milestone' },
+            ]
+          }
+        ]
+      },
+    ]
+  },
+  {
+    id: 'joao',
+    name: 'João Gabriel',
+    role: 'Gestor de Tráfego Pago · Meta Ads',
+    initials: 'JG',
+    startDate: '2026-05-09',
+    duration: '45 dias',
+    phases: [
+      {
+        title: 'Fase 1 — Estudo + observação',
+        subtitle: 'Semanas 1 e 2',
+        weeks: [
+          {
+            label: 'Subido + Manual + Observação',
+            tasks: [
+              { id: 'j-f1-1', text: 'Terminar curso Subido completo (1-2h por dia).', tag: 'study' },
+              { id: 'j-f1-2', text: 'Ler manual Sapiencia 2 vezes e anotar dúvidas.', tag: 'study' },
+              { id: 'j-f1-3', text: 'Acompanhar Gabriel otimizando cada cliente.' },
+              { id: 'j-f1-4', text: 'Montar glossário próprio de métricas (CPM, CPC, CTR, CPA, CPL, ROAS, frequência).', tag: 'study' },
+              { id: 'j-f1-5', text: 'Estudar pixel + eventos de conversão. Configurar pixel de teste.', tag: 'study' },
+              { id: 'j-f1-6', text: 'Marco: explicar uma conta sem precisar perguntar o que cada métrica significa.', tag: 'milestone' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Fase 2 — Conta-laboratório',
+        subtitle: 'Semana 3',
+        weeks: [
+          {
+            label: 'Mãos na massa, sem risco',
+            tasks: [
+              { id: 'j-f2-1', text: 'Criar conta pessoal de Meta Ads (R$10-20/dia).' },
+              { id: 'j-f2-2', text: 'Montar campanha de conversão + tráfego + retargeting na estrutura Sapiencia.' },
+              { id: 'j-f2-3', text: 'Subir 3 ângulos x 2 formatos = 6 criativos rodando.' },
+              { id: 'j-f2-4', text: 'Otimizar diariamente — Gabriel revisa decisões antes de executar.' },
+              { id: 'j-f2-5', text: 'Montar relatório semanal no padrão Sapiencia.' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Fase 3 — Cliente real supervisionado',
+        subtitle: 'Semanas 4 e 5',
+        weeks: [
+          {
+            label: '1 cliente, revisão diária',
+            tasks: [
+              { id: 'j-f3-1', text: 'Receber acesso de edição ao 1º cliente (escolhido por Gabriel).', tag: 'milestone' },
+              { id: 'j-f3-2', text: 'Toda mudança em campanha vai pro Trello para aprovação prévia.', tag: 'danger' },
+              { id: 'j-f3-3', text: 'Revisão diária às 18h (10 min com Gabriel).' },
+              { id: 'j-f3-4', text: 'Montar relatório semanal — Gabriel revisa, cliente recebe.' },
+              { id: 'j-f3-5', text: 'Ser apresentado ao cliente, entrar no grupo.' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Fase 4 — Expansão controlada',
+        subtitle: 'Semanas 6 e 7',
+        weeks: [
+          {
+            label: '2-3 clientes, revisão diária',
+            tasks: [
+              { id: 'j-f4-1', text: 'Adicionar 1 cliente novo por semana, conforme conta.' },
+              { id: 'j-f4-2', text: 'Manter revisão diária às 18h (10-15 min, sem pular).' },
+              { id: 'j-f4-3', text: 'Decisões pequenas (<R$50) podem ser autônomas — só avisar depois.' },
+              { id: 'j-f4-4', text: 'Decisões grandes ainda exigem aprovação prévia.', tag: 'danger' },
+              { id: 'j-f4-5', text: 'Relatórios semanais direto pro cliente, com cópia pra Gabriel.' },
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Pós dia 45 — Autonomia',
+        subtitle: 'Gestor de tráfego oficial',
+        weeks: [
+          {
+            label: 'Operação plena',
+            tasks: [
+              { id: 'j-f5-1', text: 'Operar todos os clientes de tráfego.', tag: 'milestone' },
+              { id: 'j-f5-2', text: 'Revisão semanal com Gabriel (sexta, 30 min).' },
+              { id: 'j-f5-3', text: 'Decisões grandes (mudança de objetivo, +30% verba) ainda passam por Gabriel.' },
+              { id: 'j-f5-4', text: 'Liderar conversas de tráfego com cliente diretamente.' },
+              { id: 'j-f5-5', text: 'Manter estudo de 2h/semana fora do horário operacional.', tag: 'study' },
+            ]
+          }
+        ]
+      },
+    ]
+  }
+];
+
+/* =====================================================
+   STATE + PERSISTÊNCIA (in-memory + localStorage)
+   ===================================================== */
+const STORAGE_KEY = 'sapiencia_treinamento_v1';
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { console.warn('load fail', e); }
+  return { done: {}, notes: {}, notesUpdated: {} };
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) { console.warn('save fail', e); }
+}
+
+function pulseSave() {
+  const el = document.getElementById('save-pulse');
+  if (!el) return;
+  el.classList.add('show');
+  clearTimeout(pulseSave._t);
+  pulseSave._t = setTimeout(() => el.classList.remove('show'), 1200);
+}
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+function getAllTasks(trainee) {
+  const all = [];
+  trainee.phases.forEach((ph, pi) => {
+    ph.weeks.forEach((wk, wi) => {
+      wk.tasks.forEach((t) => all.push({ ...t, phaseIdx: pi, weekIdx: wi, phaseTitle: ph.title, weekLabel: wk.label }));
+    });
+  });
+  return all;
+}
+
+function progressOf(trainee) {
+  const tasks = getAllTasks(trainee);
+  const done = tasks.filter(t => state.done[t.id]).length;
+  return { done, total: tasks.length, pct: tasks.length ? Math.round(done / tasks.length * 100) : 0 };
+}
+
+function currentPhase(trainee) {
+  for (let i = 0; i < trainee.phases.length; i++) {
+    const ph = trainee.phases[i];
+    const allTasks = ph.weeks.flatMap(w => w.tasks);
+    const allDone = allTasks.every(t => state.done[t.id]);
+    if (!allDone) return { idx: i, title: ph.title };
+  }
+  return { idx: trainee.phases.length - 1, title: 'Concluído' };
+}
+
+function nextTasks(trainee, n = 5) {
+  const all = getAllTasks(trainee);
+  return all.filter(t => !state.done[t.id]).slice(0, n);
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function relativeTime(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const diff = Date.now() - d.getTime();
+  if (diff < 60000) return 'há instantes';
+  if (diff < 3600000) return `há ${Math.floor(diff/60000)} min`;
+  if (diff < 86400000) return `há ${Math.floor(diff/3600000)} h`;
+  return formatDate(iso);
+}
+
+/* =====================================================
+   RENDER · HOME
+   ===================================================== */
+function renderMetrics() {
+  const totals = TRAINEES.map(t => ({ t, p: progressOf(t) }));
+  const totalTasks = totals.reduce((s, x) => s + x.p.total, 0);
+  const doneTasks = totals.reduce((s, x) => s + x.p.done, 0);
+  const pctMedio = totals.length ? Math.round(totals.reduce((s, x) => s + x.p.pct, 0) / totals.length) : 0;
+
+  const html = `
+    <div class="metric">
+      <div class="metric-label">Pessoas ativas</div>
+      <div class="metric-value">${TRAINEES.length}</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Tarefas concluídas</div>
+      <div class="metric-value">${doneTasks}<sub>/ ${totalTasks}</sub></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Progresso médio</div>
+      <div class="metric-value">${pctMedio}<sub>%</sub></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Em treinamento desde</div>
+      <div class="metric-value" style="font-size:18px; line-height:1.3; padding-top:8px;">
+        ${TRAINEES.map(t => `${t.name.split(' ')[0]} · ${formatDate(t.startDate)}`).join('<br>')}
+      </div>
+    </div>
+  `;
+  document.getElementById('metrics-row').innerHTML = html;
+}
+
+function renderTrainees() {
+  document.getElementById('trainees-count').textContent =
+    `${TRAINEES.length} pessoa${TRAINEES.length > 1 ? 's' : ''} ativa${TRAINEES.length > 1 ? 's' : ''}`;
+
+  const html = TRAINEES.map(t => {
+    const p = progressOf(t);
+    const cur = currentPhase(t);
+    const status = p.pct === 100 ? 'Concluído' : (p.pct === 0 ? 'Iniciando' : 'Em progresso');
+    const next = nextTasks(t, 1)[0];
+
+    return `
+      <article class="trainee-card" data-id="${t.id}">
+        <div class="trainee-head">
+          <div class="avatar">${t.initials}</div>
+          <div class="trainee-info">
+            <div class="trainee-name">${t.name}</div>
+            <div class="trainee-role">${t.role}</div>
+          </div>
+          <span class="trainee-status">${status}</span>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-meta">
+            <span class="progress-label">Fase atual</span>
+            <span class="progress-value">${p.pct}%<small>${p.done}/${p.total}</small></span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:${p.pct}%"></div>
+          </div>
+          <div style="margin-top:10px; font-size:13px; color:var(--ink-mute);">${cur.title}</div>
+        </div>
+
+        <div class="trainee-stats">
+          <div>
+            <div class="stat-label">Plano</div>
+            <div class="stat-value">${t.duration}</div>
+          </div>
+          <div>
+            <div class="stat-label">Início</div>
+            <div class="stat-value" style="font-size:14px;">${formatDate(t.startDate)}</div>
+          </div>
+          <div>
+            <div class="stat-label">Próxima</div>
+            <div class="stat-value" style="font-size:13px; line-height:1.3;">${next ? truncate(next.text, 28) : '✓ Tudo feito'}</div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  document.getElementById('trainees-grid').innerHTML = html;
+
+  // hooks
+  document.querySelectorAll('.trainee-card').forEach(card => {
+    card.addEventListener('click', () => goDetail(card.dataset.id));
+  });
+}
+
+function truncate(s, n) {
+  return s.length > n ? s.substring(0, n - 1) + '…' : s;
+}
+
+/* =====================================================
+   RENDER · DETALHE
+   ===================================================== */
+let currentTraineeId = null;
+
+function goDetail(id) {
+  currentTraineeId = id;
+  const t = TRAINEES.find(x => x.id === id);
+  if (!t) return;
+
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('detail').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  document.getElementById('d-avatar').textContent = t.initials;
+  document.getElementById('d-name').textContent = t.name;
+  document.getElementById('d-role').textContent = t.role;
+
+  renderDetail(t);
+}
+
+function goHome() {
+  currentTraineeId = null;
+  document.getElementById('home').classList.remove('hidden');
+  document.getElementById('detail').classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  render();
+}
+
+function renderDetail(t) {
+  const p = progressOf(t);
+  document.getElementById('d-pct').textContent = p.pct + '%';
+
+  // fases
+  const phasesHtml = t.phases.map((ph, pi) => {
+    const allTasks = ph.weeks.flatMap(w => w.tasks);
+    const phDone = allTasks.filter(x => state.done[x.id]).length;
+
+    const weeksHtml = ph.weeks.map(wk => {
+      const tasksHtml = wk.tasks.map(task => {
+        const done = !!state.done[task.id];
+        const tag = task.tag
+          ? `<span class="task-tag ${task.tag}">${tagLabel(task.tag)}</span>`
+          : '';
+        return `
+          <li class="task ${done ? 'done' : ''}" data-task="${task.id}">
+            <div class="checkbox"></div>
+            <div class="task-text">${task.text}</div>
+            ${tag}
+          </li>
+        `;
+      }).join('');
+
+      return `
+        <div class="week">
+          <div class="week-head">
+            <div class="week-title">${wk.label}</div>
+          </div>
+          <ul class="task-list">${tasksHtml}</ul>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="phase">
+        <div class="phase-head">
+          <div class="phase-title-wrap">
+            <span class="phase-num">Fase 0${pi + 1}</span>
+            <div>
+              <div class="phase-title">${ph.title}</div>
+              ${ph.subtitle ? `<div style="font-size:12px;color:var(--ink-mute);margin-top:2px;">${ph.subtitle}</div>` : ''}
+            </div>
+          </div>
+          <div class="phase-progress-mini">
+            <b>${phDone}</b> / ${allTasks.length}
+          </div>
+        </div>
+        ${weeksHtml}
+      </div>
+    `;
+  }).join('');
+  document.getElementById('d-phases').innerHTML = phasesHtml;
+
+  // próximas tarefas
+  const next = nextTasks(t, 5);
+  document.getElementById('d-next').innerHTML = next.length
+    ? next.map(n => `
+        <div class="next-task">
+          <span class="where">${n.phaseTitle}</span>
+          ${n.text}
+        </div>
+      `).join('')
+    : '<div class="empty-state">✓ Todas as tarefas concluídas. Bom trabalho!</div>';
+
+  // notas
+  const notesEl = document.getElementById('d-notes');
+  notesEl.value = state.notes[t.id] || '';
+  document.getElementById('d-notes-meta').textContent =
+    state.notesUpdated[t.id] ? `atualizado ${relativeTime(state.notesUpdated[t.id])}` : 'sem anotações';
+
+  // hooks
+  document.querySelectorAll('.task').forEach(taskEl => {
+    taskEl.querySelector('.checkbox').addEventListener('click', () => toggleTask(taskEl.dataset.task));
+  });
+}
+
+function tagLabel(tag) {
+  if (tag === 'milestone') return 'Marco';
+  if (tag === 'danger') return 'Atenção';
+  if (tag === 'study') return 'Estudo';
+  return tag;
+}
+
+/* =====================================================
+   AÇÕES
+   ===================================================== */
+function toggleTask(id) {
+  state.done[id] = !state.done[id];
+  saveState();
+  pulseSave();
+  if (currentTraineeId) {
+    const t = TRAINEES.find(x => x.id === currentTraineeId);
+    renderDetail(t);
+  }
+}
+
+function bindNotes() {
+  const el = document.getElementById('d-notes');
+  let timer = null;
+  el.addEventListener('input', () => {
+    if (!currentTraineeId) return;
+    state.notes[currentTraineeId] = el.value;
+    state.notesUpdated[currentTraineeId] = new Date().toISOString();
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      saveState();
+      pulseSave();
+      document.getElementById('d-notes-meta').textContent =
+        `atualizado ${relativeTime(state.notesUpdated[currentTraineeId])}`;
+    }, 350);
+  });
+}
+
+function bindReset() {
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (!currentTraineeId) return;
+    if (!confirm('Reiniciar todo o progresso desta pessoa? Esta ação não pode ser desfeita.')) return;
+    const t = TRAINEES.find(x => x.id === currentTraineeId);
+    getAllTasks(t).forEach(task => { delete state.done[task.id]; });
+    saveState();
+    renderDetail(t);
+  });
+}
+
+document.getElementById('back-btn').addEventListener('click', goHome);
+
+/* =====================================================
+   DATA NO TOPO
+   ===================================================== */
+function renderDate() {
+  const d = new Date();
+  const txt = d.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
+  document.getElementById('today-date').textContent = txt;
+}
+
+/* =====================================================
+   BOOT
+   ===================================================== */
+function render() {
+  renderMetrics();
+  renderTrainees();
+}
+
+renderDate();
+render();
+bindNotes();
+bindReset();
+</script>
+
+</body>
+</html>
